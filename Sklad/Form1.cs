@@ -29,14 +29,16 @@ namespace Sklad
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlCommand cmd = new SqlCommand($"INSERT INTO [Sklad](Name,Type,Seller,Count,Price,Data) VALUES(@Name,@Typee,@Seller,@Count,@Price,@Data)", sqlConnection);
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand($"INSERT INTO [Sklad](Id,Name,Type,Seller,Count,Price,Data) VALUES(1,@Name,@Type,@Seller,@Count,@Price,@Data)", sqlConnection);
             cmd.Parameters.AddWithValue("Name", textBox1.Text);
             cmd.Parameters.AddWithValue("Type", textBox2.Text);
-            cmd.Parameters.AddWithValue("Seller", textBox3.Text);
-            cmd.Parameters.AddWithValue("Count", textBox4.Text);
-            cmd.Parameters.AddWithValue("Price", textBox5.Text);
-            cmd.Parameters.AddWithValue("Data", textBox6.Text);
+            cmd.Parameters.AddWithValue("Seller", textBox4.Text);
+            cmd.Parameters.AddWithValue("Count",int.Parse(textBox3.Text));
+            cmd.Parameters.AddWithValue("Price", int.Parse(textBox6.Text));
+            cmd.Parameters.AddWithValue("Data", DateTime.Parse(textBox5.Text));
             cmd.ExecuteNonQuery();
+            sqlConnection.Close();
         }
     }
 }
